@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <title>Blog</title>
+    <script type="module" src="index.js"></script>
+</head>
+<body style="background-color:#cccccc;">
+        <nav>
+            <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./blogFeed.html">Feed</a></li>
+              </ul>
+        </nav>
+        <br><br>
+
+    <h1>Food Blog Homepage</h1>
+    <div>
+        <form>
+           <!--<label>Post ID:</label>--> 
+           <!--<input type="text" id="postID" autocomplete="off"> id23 <br><br>--> 
+
+            <label>Name:</label>
+            <input type="text" id="name" placeholder="John Doe" autocomplete="off"> john doe <br><br>
+
+            <label>Blog post title:</label> <br>
+            <input type="text" id="title" autocomplete="off"> title here <br><br>
+
+            <label>Blog post content:</label> <br>
+            <textarea id="messageContent" rows="5" cols="25"></textarea> contentr here <br><br>
+
+            <label>Add image URL (1 image link):</label> <br>
+            <textarea id="imageURL" placeholder="https://imgur.com/yourImage" cols="25"></textarea> url.com <br><br>
+            
+            <button id="firestoreBtn" class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Submit to Firestore</button>
+        </form>
+    </div>
+<!--
+    <div>
+        <form id="makePostForm">
+            <button id="getData">Get Data</button>
+        </form>
+    </div>
+-->
+
+</body>
+</html>
