@@ -15,6 +15,27 @@ const app = initializeApp(firebaseConfig);
 const database = getDatabase();
 
 
+//--------------------------------Functions for making dates + formatting--------------------------------
+const timestamp = () => {
+  let timestampV = Date.now();
+  return timestampV
+}
+
+const prettyDate = () => {
+  const date = new Date(timestamp());
+
+  const dateMin = () => {
+    if (date.getMinutes() < 10) {
+      return '0' + date.getMinutes();
+    } else {
+      return date.getMinutes();
+    }
+  }
+  return (date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + dateMin())
+}
+//-----------------------------------------------------------------------------------------
+
+
 //--------------------------------Functions for storing each text box's value--------------------------------
 /*
 export const postIdV = () => {
@@ -53,15 +74,17 @@ charactersLength));
 //-----------------------------------------------------------------------------------------
 
 //--------------------------------Write to Realtime Database function--------------------------------
-function writeUserData(key, userId, name, title, message, imageUrl) {
+function writeUserData(key, userId, name, date, title, message, imageUrl, timestamp) {
   const db = getDatabase();
   set(ref(db, 'blogPost/' + key), {
-    usedId: userId,
-    for: "blog",
     username: name,
+    date: date,
     title: title,
     bodyContent: message,
-    urls: imageUrl
+    urls: imageUrl,
+    timestamp: timestamp,
+    usedId: userId,
+    for: "blog"
   });
   console.log('successfully submitted data')
 }
@@ -75,10 +98,10 @@ const firestoreDB = getFirestore();
 export const firestoreBtn = document.getElementById('firestoreBtn');
 
 firestoreBtn.addEventListener('click', (e) => {
-  const key = keyGen(10);
+  export const key = keyGen(10);
   console.log(key);
 
-  writeUserData(key, key, nameV(), titleV(), messageV(), imageURLV());
+  writeUserData(key, key, nameV(), prettyDate(), titleV(), messageV(), imageURLV(), timestamp());
 
   console.log('btn clicked')
   const dbPath = ref(database, `blogPost/${key}`)
@@ -86,12 +109,14 @@ firestoreBtn.addEventListener('click', (e) => {
   onValue(dbPath, (snapshot) => {
 
     const blogData = {
-      for: snapshot.val().for,
-      id: key,
       title: snapshot.val().title,
+      date: snapshot.val().date,
       subtitle: "By " + snapshot.val().username,
       content: snapshot.val().bodyContent,
       url: snapshot.val().urls,
+      for: snapshot.val().for,
+      id: key,
+      timestamp: snapshot.val().timestamp
     }
 
     async function writeFirestore() {
@@ -103,11 +128,10 @@ firestoreBtn.addEventListener('click', (e) => {
     writeFirestore();
     console.log(blogData);
   });
-
   e.preventDefault();
 });
 //-----------------------------------------------------------------------------------------
-
+console.log(`key in global scope: ${key}`)
 
 //-----------------------------------------------------------------------------------------
 //  old func for writing to realtime database
@@ -131,3 +155,4 @@ const collectData = () => {
 }
 */
 //-----------------------------------------------------------------------------------------
+

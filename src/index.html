@@ -8,42 +8,127 @@
     <title>Blog</title>
     <script type="module" src="index.js"></script>
 </head>
-<body style="background-color:#cccccc;">
-    <br>    
-    <nav>
-        <a href="./index.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Home</button></a>
-        <a href="./blogFeed.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Feed</button></a>
-    </nav>
-    <br><br>
+<body class="flex flex-col min-h-screen" style="background-color:#cccccc;">
+    <header class="header">
+        <style type="text/css">
+            .header {
+                border-bottom: 1px solid black;
+            }
+        </style>
+        <br>
+        <nav class="text-center">
+            <a href="./index.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Home</button></a>
+            <a href="./blogFeed.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Feed</button></a>
+        </nav>
+        <br>
+    
+    </header>
 
-    <h1>Food Blog Homepage</h1>
-    <div>
-        <form>
-           <!--<label>Post ID:</label>--> 
-           <!--<input type="text" id="postID" autocomplete="off"> id23 <br><br>--> 
+<main class="flex-grow">
 
-            <label>Name:</label>
-            <input type="text" id="name" placeholder="John Doe" autocomplete="off"> john doe <br><br>
+    <br>
+    <h1 class="text-center text-2xl font-bold">Food Blog Homepage</h1> <br>
+    <div class="text-center">
+        <form id="blogPostForm">
+            <!--<label>Post ID:</label>--> 
+            <!--<input type="text" id="postID" autocomplete="off"> id23 <br><br>--> 
 
-            <label>Blog post title:</label> <br>
-            <input type="text" id="title" autocomplete="off"> title here <br><br>
+            <label class="font-semibold">Name:</label><br>
+            <input type="text" class="text-center" id="name" placeholder="John Doe" autocomplete="off"> <br><br>
 
-            <label>Blog post content:</label> <br>
-            <textarea id="messageContent" rows="5" cols="25"></textarea> contentr here <br><br>
+            <label class="font-semibold">Blog post title:</label> <br>
+            <input type="text" id="title" placeholder="My Title" autocomplete="off"> <br><br>
 
-            <label>Add image URL (1 image link):</label> <br>
-            <textarea id="imageURL" placeholder="https://imgur.com/yourImage" cols="25"></textarea> url.com <br><br>
+            <label class="font-semibold">Blog post content:</label> <br>
+            <textarea id="messageContent" placeholder="My blog post" rows="5" cols="22"></textarea> <br><br>
+
+            <label class="font-semibold">Add an image URL:</label> <br>
+            <textarea class="text-center" id="imageURL" placeholder="https://image.com/" cols="22"></textarea> <br><br>
             
-            <button id="firestoreBtn" class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Submit to Firestore</button>
+            <form>
+                <button id="firestoreBtn" class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Submit to Firestore</button>
+            </form>
         </form>
     </div>
-<!--
-    <div>
-        <form id="makePostForm">
-            <button id="getData">Get Data</button>
-        </form>
-    </div>
--->
+    <br>
 
+    <script type="module">
+        import { getFirestore, collection, query, where, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"; 
+        const firestoreDB = getFirestore();
+        const keyV = require('./index.js')
+        const key = keyV.key;
+
+        const checkDB = query(collection(firestoreDB, "posts"), where("id", "==", key));
+        const submitBtn = document.getElementById("firestoreBtn");
+        submitBtn.addEventListener('click', (e) => {
+            console.log(`post id: ${checkDB}`);
+        })
+        
+
+    </script>
+
+</main>
+
+<footer>
+
+    <style type="text/css">
+        .footer {
+            text-align: center;
+            border-top: 1px solid black;
+        }
+        .twitterImg {
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .gmailImg {
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .githubImg {
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .column {
+            display:inline-block;
+            }
+
+        /* Clear floats after image containers */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+            }
+    </style>
+
+    <div class="footer" id="footer">
+        <div>
+            <p class="font-semibold">Site by Brace Sproul</p>
+            <!--Twitter icon made by Md Tanvirul Haque. Link: https://www.flaticon.com/authors/md-tanvirul-haque-->
+            <!--Gmail icon made by Pixel perfect. Link: https://www.flaticon.com/authors/pixel-perfect-->
+            <!--Github icon made by riajulislam. Link: https://www.flaticon.com/authors/riajulislam-->
+            <div class="row">
+                <div class="column">
+                    <a href="https://github.com/bracesproul" target="_blank"><img class="githubImg" src="../icons/github.png"></img></a> 
+                </div>
+                <div class="column">
+                    <a href="mailto:braceasproul@gmail.com" target="_blank"><img class="gmailImg" src="../icons/gmail.png"></img></a>
+                </div>
+                <div class="column">
+                    <a href="https://twitter.com/FinishIineUS/" target="_blank"><img class="twitterImg" src="../icons/twitter.png"></img></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
 </body>
 </html>

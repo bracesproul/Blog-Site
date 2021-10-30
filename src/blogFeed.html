@@ -8,15 +8,30 @@
     <title>Blog Feed</title>
     <script type="module" src="blogFeed.js"></script>
 </head>
-<body style="background-color:#cccccc;">
-    <br>    
-    <nav>
+<body class="flex flex-col min-h-screen" style="background-color:#cccccc;">
+<header class="header">
+    <style type="text/css">
+        .header {
+            border-bottom: 1px solid black;
+        }
+    </style>
+    <br>
+    <nav class="text-center">
         <a href="./index.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Home</button></a>
         <a href="./blogFeed.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Feed</button></a>
     </nav>
-    <br><br>
-    
-    <h1 class="text-center text-3xl font-bold">Blog Feed</h1><br><br>
+    <br>
+
+</header>
+
+<main class="flex-grow">
+
+    <br>
+    <h1 class="text-center text-3xl font-bold">Blog Feed</h1><br>
+    <div class="text-center">
+        <button id="refreshFeed" class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full" onClick="history.go(0);">Refresh Feed</button> 
+        <br><br>
+    </div>
 
     <style type="text/css">
         .blogPost {
@@ -34,19 +49,73 @@
         } 
     </style>
 
-    <div class="text-center">
-        <div class="blogPost">
-            <h3 id="title" class="text-2xl font-semibold">Title Placeholder</h3>
-            <h6 id="subtitle">Author Placeholder</h6>
-            <p id="contentBody">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>
-    </div>
-
     <div id="mainDiv">
         <div id="titleDiv"></div>
 
     </div>
 
-    
+</main>
+
+<footer>
+
+    <style type="text/css">
+        .footer {
+            text-align: center;
+            border-top: 1px solid black;
+        }
+        .twitterImg {
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .gmailImg {
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .githubImg {
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .column {
+            display:inline-block;
+            }
+
+        /* Clear floats after image containers */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+            }
+    </style>
+
+    <div class="footer" id="footer">
+        <div>
+            <p class="font-semibold">Site by Brace Sproul</p>
+            <!--Twitter icon made by Md Tanvirul Haque. Link: https://www.flaticon.com/authors/md-tanvirul-haque-->
+            <!--Gmail icon made by Pixel perfect. Link: https://www.flaticon.com/authors/pixel-perfect-->
+            <!--Github icon made by riajulislam. Link: https://www.flaticon.com/authors/riajulislam-->
+            <div class="row">
+                <div class="column">
+                    <a href="https://github.com/bracesproul" target="_blank"><img class="githubImg" src="../icons/github.png"></img></a> 
+                </div>
+                <div class="column">
+                    <a href="mailto:braceasproul@gmail.com" target="_blank"><img class="gmailImg" src="../icons/gmail.png"></img></a>
+                </div>
+                <div class="column">
+                    <a href="https://twitter.com/FinishIineUS/" target="_blank"><img class="twitterImg" src="../icons/twitter.png"></img></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
 </body>
 </html>
