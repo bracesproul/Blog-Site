@@ -8,17 +8,21 @@
     <title>Blog</title>
     <script type="module" src="index.js"></script>
 </head>
-<body class="flex flex-col min-h-screen" style="background-color:#cccccc;">
+<body class="flex flex-col min-h-screen" style="background-color: white;">
     <header class="header">
         <style type="text/css">
             .header {
                 border-bottom: 1px solid black;
             }
+            .input {
+                transition: border 0.2s ease-in-out;
+                min-width: 280px
+            }
         </style>
         <br>
         <nav class="text-center">
-            <a href="./index.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Home</button></a>
-            <a href="./blogFeed.html"><button class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Feed</button></a>
+            <a href="./index.html"><button class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-600 hover:bg-indigo-700 rounded-full">Home</button></a>
+            <a href="./blogFeed.html"><button class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-600 hover:bg-indigo-700 rounded-full">Feed</button></a>
         </nav>
         <br>
     
@@ -26,45 +30,41 @@
 
 <main class="flex-grow">
 
-    <br>
-    <h1 class="text-center text-2xl font-bold">Food Blog Homepage</h1> <br>
-    <div class="text-center">
-        <form id="blogPostForm">
-            <!--<label>Post ID:</label>--> 
-            <!--<input type="text" id="postID" autocomplete="off"> id23 <br><br>--> 
+    <div class="heading text-center font-bold text-2xl m-5 text-gray-800">New Post</div>
+    <style>
+      body {background:white !important;}
+    </style>
+      <div class="editor mx-auto w-10/12 flex flex-col text-gray-800 border border-gray-300 p-4 shadow-lg max-w-2xl">
+        <input class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" id="name" spellcheck="true" placeholder="Name" autocomplete="off" type="text">
+        <input class="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none" id="title" spellcheck="true" placeholder="Title" autocomplete="off" type="text">
+        <textarea class="description bg-gray-100 sec p-3 h-40 border border-gray-300 outline-none" id="messageContent" spellcheck="true" placeholder="Post content here"></textarea>
+        <br>
+        <!-- buttons -->
+        <div class="buttons flex">
+          <div class="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 hover:bg-gray-100 ml-auto">
+              <button id="cancel">Cancel</button>
+          </div>
+          <div class="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500 hover:bg-indigo-600">
+            <button id="firestoreBtn">Send</button>
+        </div>
+        </div>
+      </div>
 
-            <label class="font-semibold">Name:</label><br>
-            <input type="text" class="text-center" id="name" placeholder="John Doe" autocomplete="off"> <br><br>
+    <script>
+        const submitPostAlert = document.getElementById('firestoreBtn');
+        firestoreBtn.addEventListener('click', (e) => {
+            alert('Your blog post has been submitted!');
+            e.preventDefault();
+        });
 
-            <label class="font-semibold">Blog post title:</label> <br>
-            <input type="text" id="title" placeholder="My Title" autocomplete="off"> <br><br>
-
-            <label class="font-semibold">Blog post content:</label> <br>
-            <textarea id="messageContent" placeholder="My blog post" rows="5" cols="22"></textarea> <br><br>
-
-            <label class="font-semibold">Add an image URL:</label> <br>
-            <textarea class="text-center" id="imageURL" placeholder="https://image.com/" cols="22"></textarea> <br><br>
-            
-            <form>
-                <button id="firestoreBtn" class="bg-blue-700 font-semibold hover:bg-blue-800 hover:-translate-y-0.5 transform transition border-b-4 border-blue-900 text-white py-2 px-4 rounded-full">Submit to Firestore</button>
-            </form>
-        </form>
-    </div>
-    <br>
-
-    <script type="module">
-        import { getFirestore, collection, query, where, onSnapshot, orderBy, limit } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js"; 
-        const firestoreDB = getFirestore();
-        const keyV = require('./index.js')
-        const key = keyV.key;
-
-        const checkDB = query(collection(firestoreDB, "posts"), where("id", "==", key));
-        const submitBtn = document.getElementById("firestoreBtn");
-        submitBtn.addEventListener('click', (e) => {
-            console.log(`post id: ${checkDB}`);
-        })
-        
-
+        const cancelBtn = document.getElementById('cancel');
+        cancelBtn.addEventListener('click', (e) => {
+            document.getElementById('name').value = "";
+            document.getElementById('title').value = "";
+            document.getElementById('messageContent').value = "";
+            console.log('cleared')
+            e.preventDefault();
+        });
     </script>
 
 </main>

@@ -55,8 +55,8 @@ const messageV = () => {
   return message;
 }
 const imageURLV = () => {
-  const imageURL = document.getElementById('imageURL').value;
-  return imageURL;
+  //const imageURL = document.getElementById('imageURL').value;
+  return "n/a";
 }
 //-----------------------------------------------------------------------------------------
 
@@ -81,7 +81,7 @@ function writeUserData(key, userId, name, date, title, message, imageUrl, timest
     date: date,
     title: title,
     bodyContent: message,
-    urls: imageUrl,
+    url: imageUrl,
     timestamp: timestamp,
     usedId: userId,
     for: "blog"
@@ -98,7 +98,7 @@ const firestoreDB = getFirestore();
 export const firestoreBtn = document.getElementById('firestoreBtn');
 
 firestoreBtn.addEventListener('click', (e) => {
-  export const key = keyGen(10);
+  const key = keyGen(10);
   console.log(key);
 
   writeUserData(key, key, nameV(), prettyDate(), titleV(), messageV(), imageURLV(), timestamp());
@@ -113,7 +113,7 @@ firestoreBtn.addEventListener('click', (e) => {
       date: snapshot.val().date,
       subtitle: "By " + snapshot.val().username,
       content: snapshot.val().bodyContent,
-      url: snapshot.val().urls,
+      url: snapshot.val().url,
       for: snapshot.val().for,
       id: key,
       timestamp: snapshot.val().timestamp
@@ -131,7 +131,6 @@ firestoreBtn.addEventListener('click', (e) => {
   e.preventDefault();
 });
 //-----------------------------------------------------------------------------------------
-console.log(`key in global scope: ${key}`)
 
 //-----------------------------------------------------------------------------------------
 //  old func for writing to realtime database

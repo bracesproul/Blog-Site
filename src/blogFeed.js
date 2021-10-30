@@ -31,7 +31,7 @@ const postBreak = () => {
   return br;
 }
 
-function createDiv(divId, title, date, subtitle, content) {
+function createDiv(divId, title, date, subtitle, content, /*imgLink*/) {
   const div = document.createElement('div');
   const dateDiv = document.createElement('div');
   const pDate = document.createElement('p');
@@ -39,6 +39,7 @@ function createDiv(divId, title, date, subtitle, content) {
   const pTitle = document.createElement('p');
   const pSubtitle = document.createElement('p');
   const pContent = document.createElement('p');
+  //const imgLinkV = document.createElement('img');
   const br = document.createElement('br');
 
   div.className = "relative-" + divId;
@@ -59,6 +60,9 @@ function createDiv(divId, title, date, subtitle, content) {
   pContent.className = 'text-base font-normal';
   pContent.id = content;
 
+  //imgLinkV.className = 'blogImage-' + divId;
+  //imgLinkV.id = "blogImageID-" + divId;
+
   style.innerHTML = `
   .${"relative-" + divId} {
     text-align: center;
@@ -69,7 +73,7 @@ function createDiv(divId, title, date, subtitle, content) {
     padding-left:1%;
     padding-right:1%;
     border-style:solid;
-    border-color:#336699;
+    border-color:#336699; 
     border-width:3px;
     word-wrap: break-word;
 }
@@ -78,8 +82,8 @@ function createDiv(divId, title, date, subtitle, content) {
   pTitle.innerText = title;
   pSubtitle.innerText = subtitle;
   pDate.innerText = `Posted: ${date}`;
-  //pDate.innerText = "Posted: " + date;
   pContent.innerText = content;
+  //imgLinkV.innerHTML = `<img src="${imgLink}" alt="Blog Post Image">`
 
   // create parrent div to contain style, all data and text in child div..
   div.appendChild(dateDiv);
@@ -87,6 +91,7 @@ function createDiv(divId, title, date, subtitle, content) {
   div.appendChild(pTitle);
   div.appendChild(pSubtitle);
   div.appendChild(pContent);
+  //div.appendChild(imgLinkV);
   div.appendChild(style);
 
   
@@ -95,7 +100,7 @@ function createDiv(divId, title, date, subtitle, content) {
   parentDiv.insertBefore(br, titleDiv);
   // mainDiv.insertBefore(div, titleDiv.nextSibling);
   console.log('div added successfully');
-  return div, dateDiv, pTitle, pSubtitle, pDate, pContent;
+  return div, dateDiv, pTitle, pSubtitle, pDate, pContent, /*imgLinkV,*/ style;
 }
 //-----------------------------------------------------------------------------------------
 
@@ -117,6 +122,7 @@ const unsubscribe = onSnapshot(q, (querySnapshot) => {
     let date = "";
     let subtitle = "";
     let content = "";
+    let imgLink = "";
 
     querySnapshot.forEach((doc) => {
         divId = doc.data().id;
@@ -125,8 +131,9 @@ const unsubscribe = onSnapshot(q, (querySnapshot) => {
         date = doc.data().date;
         subtitle = doc.data().subtitle;
         content = doc.data().content;
+        imgLink = doc.data().url;
 
-        document.body.onload = createDiv(noSpaceDivId, title, date, subtitle, content);
+        document.body.onload = createDiv(noSpaceDivId, title, date, subtitle, content, imgLink);
 
         console.log(`divId: ${noSpaceDivId},\ntitle: ${title},\ndate posted: ${date},\nsubtitle: ${subtitle},\ncontent: ${content}`)
     });
